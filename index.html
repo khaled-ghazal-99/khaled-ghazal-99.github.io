@@ -1,641 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Khaled Ghazal — Senior Cloud Management & DevOps Engineer</title>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    :root {
-      --bg: #030712;
-      --surface: rgba(17, 24, 39, 0.7);
-      --surface-card: rgba(31, 41, 55, 0.4);
-      --border: rgba(55, 65, 81, 0.5);
-      --border-focus: #00f2fe;
-      --accent: #00f2fe;
-      --accent-gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
-      --accent2: #3b82f6;
-      --text: #f9fafb;
-      --muted: #9ca3af;
-      --mono: 'JetBrains Mono', monospace;
-      --sans: 'Plus Jakarta Sans', sans-serif;
-    }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; background: var(--bg); }
+<meta charset="UTF-8">
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--sans);
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    /* Ambient Background Glows */
-    .glow-1 {
-      position: absolute; width: 600px; height: 600px; top: -10%; right: -10%;
-      background: radial-gradient(circle, rgba(0, 242, 254, 0.06) 0%, transparent 70%);
-      pointer-events: none; z-index: 1;
-    }
-    .glow-2 {
-      position: absolute; width: 500px; height: 500px; top: 45%; left: -10%;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-      pointer-events: none; z-index: 1;
-    }
+<title>Khaled Ghazal | Senior Cloud & DevOps Engineer</title>
 
-    /* NAVIGATION */
-    nav {
-      position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(3, 7, 18, 0.6);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--border);
-      padding: 1.2rem 4rem;
-      display: flex; justify-content: space-between; align-items: center;
-    }
-    .nav-logo {
-      font-family: var(--mono);
-      color: var(--accent);
-      font-size: 1rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-    }
-    .nav-links { display: flex; gap: 3rem; list-style: none; }
-    .nav-links a {
-      color: var(--muted); text-decoration: none;
-      font-size: 0.85rem; font-family: var(--mono);
-      transition: color 0.2s ease;
-      position: relative;
-    }
-    .nav-links a:hover { color: var(--text); }
-    .nav-links a:hover::after {
-      content: ''; position: absolute; bottom: -6px; left: 0; width: 100%; height: 1px; background: var(--accent);
-    }
+<link rel="preconnect" href="https://fonts.googleapis.com">
 
-    /* HERO DESIGN */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      align-items: center;
-      gap: 4rem;
-      padding: 8rem 4rem 4rem;
-      max-width: 1300px; margin: 0 auto;
-      position: relative;
-      z-index: 2;
-    }
-    .hero-content { max-width: 680px; }
-    .hero-eyebrow {
-      font-family: var(--mono);
-      color: var(--accent);
-      font-size: 0.8rem;
-      letter-spacing: 0.05em;
-      margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 0.5rem;
-    }
-    .hero-status-pulse {
-      width: 8px; height: 8px; background: #10b981; border-radius: 50%;
-      box-shadow: 0 0 10px #10b981;
-    }
-    h1 {
-      font-size: clamp(3rem, 6vw, 4.8rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      margin-bottom: 1.5rem;
-      color: #ffffff;
-    }
-    h1 span { 
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hero-sub {
-      font-size: 1.25rem;
-      color: var(--muted);
-      margin-bottom: 3rem;
-      font-weight: 300;
-      line-height: 1.7;
-    }
-    .hero-ctas { display: flex; gap: 1.2rem; }
-    
-    /* INFRASTRUCTURE TOPOLOGY GRAPHICS (RIGHT HERO) */
-    .hero-topology {
-      background: rgba(17, 24, 39, 0.4);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 2.5rem;
-      position: relative;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
-      display: flex; flex-direction: column; gap: 1.5rem;
-    }
-    .topo-node {
-      background: rgba(31, 41, 55, 0.5);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 1rem 1.5rem;
-      display: flex; justify-content: space-between; align-items: center;
-      transition: all 0.3s ease;
-    }
-    .topo-node:hover {
-      border-color: var(--accent);
-      transform: translateX(5px);
-      background: rgba(31, 41, 55, 0.8);
-    }
-    .topo-title {
-      font-family: var(--mono); font-size: 0.85rem; font-weight: 700; color: #ffffff;
-    }
-    .topo-desc {
-      font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem;
-    }
-    .topo-status {
-      font-family: var(--mono); font-size: 0.75rem; padding: 0.25rem 0.6rem; 
-      border-radius: 4px; background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.2);
-    }
-    .topo-arrow {
-      text-align: center; color: var(--border); font-size: 1.2rem; margin: -0.5rem 0;
-    }
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-    /* BUTTONS */
-    .btn {
-      padding: 0.9rem 2rem;
-      border-radius: 8px;
-      font-size: 0.85rem;
-      font-family: var(--mono);
-      font-weight: 600;
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-      cursor: pointer;
-    }
-    .btn-primary {
-      background: var(--accent-gradient);
-      color: #030712;
-      box-shadow: 0 4px 25px rgba(0, 242, 254, 0.25);
-    }
-    .btn-primary:hover { 
-      transform: translateY(-2px); 
-      box-shadow: 0 6px 30px rgba(0, 242, 254, 0.45);
-    }
-    .btn-outline {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: rgba(255,255,255,0.02);
-    }
-    .btn-outline:hover { 
-      border-color: var(--accent); 
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
+<link rel="stylesheet" href="style.css">
 
-    /* GLOBAL SECTIONS */
-    section {
-      max-width: 1300px; margin: 0 auto;
-      padding: 8rem 4rem;
-      position: relative; z-index: 2;
-    }
-    .section-label {
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      color: var(--accent);
-      letter-spacing: 0.05em;
-      margin-bottom: 0.75rem;
-    }
-    h2 {
-      font-size: 2.5rem; font-weight: 800;
-      margin-bottom: 4rem; letter-spacing: -0.03em;
-    }
-
-    /* SKILLS GRID HARDWARE MAP */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 1.5rem;
-    }
-    .skill-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 2rem;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      transition: all 0.3s ease;
-      position: relative; overflow: hidden;
-    }
-    .skill-card::before {
-      content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-      background: var(--accent-gradient); opacity: 0; transition: opacity 0.3s ease;
-    }
-    .skill-card:hover {
-      border-color: rgba(0, 242, 254, 0.3);
-      transform: translateY(-4px);
-    }
-    .skill-card:hover::before { opacity: 1; }
-    
-    .skill-card h3 {
-      font-size: 1.1rem; font-weight: 600;
-      margin-bottom: 1.5rem; color: #ffffff;
-      display: flex; justify-content: space-between;
-    }
-    .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .tag {
-      background: var(--surface-card);
-      color: #e5e7eb;
-      border: 1px solid var(--border);
-      padding: 0.35rem 0.8rem; border-radius: 6px;
-      font-size: 0.8rem; font-family: var(--mono);
-    }
-
-    /* EXPERIENCE TIMELINE RUNTIME */
-    .timeline { position: relative; max-width: 900px; }
-    .job {
-      display: grid;
-      grid-template-columns: 240px 1fr;
-      gap: 2rem; margin-bottom: 5rem;
-      position: relative;
-    }
-    .job:last-child { margin-bottom: 0; }
-    .job-left {
-      font-family: var(--mono);
-      font-size: 0.85rem; color: var(--muted);
-      position: relative;
-    }
-    .job-left span {
-      display: block; color: var(--accent);
-      font-size: 0.95rem; font-weight: 600; margin-bottom: 0.25rem;
-    }
-    .job-right h3 {
-      font-size: 1.35rem; font-weight: 700; color: #ffffff;
-      margin-bottom: 0.5rem;
-    }
-    .job-company {
-      font-size: 1rem; color: #3b82f6; font-weight: 600;
-      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;
-    }
-    .job ul li {
-      color: var(--muted); font-size: 0.98rem;
-      margin-bottom: 0.75rem; line-height: 1.6;
-      list-style-type: square; margin-left: 1.2rem;
-    }
-
-    /* CERTIFICATIONS */
-    .certs-layout {
-      display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem;
-    }
-    .certs-grid {
-      display: grid; grid-template-columns: 1fr; gap: 1rem;
-    }
-    .cert-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex; align-items: center; gap: 1.5rem;
-      transition: all 0.2s ease;
-    }
-    .cert-card:hover { border-color: #3b82f6; background: rgba(59, 130, 246, 0.05); }
-    .cert-icon { font-size: 1.5rem; }
-    .cert-name { font-size: 1rem; font-weight: 600; color: #ffffff; }
-    .cert-year { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
-
-    /* HIGH IMPACT CONTACT CONTAINER */
-    .contact-wrapper {
-      background: radial-gradient(circle at top right, rgba(0,242,254,0.05), transparent), var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 5rem 3rem; text-align: center;
-      max-width: 850px; margin: 4rem auto 0;
-      backdrop-filter: blur(20px);
-    }
-    .contact-wrapper p {
-      font-size: 1.15rem; color: var(--muted);
-      max-width: 500px; margin: 0 auto 3rem;
-    }
-    .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-    .contact-link {
-      display: flex; align-items: center; gap: 0.75rem;
-      padding: 0.9rem 1.6rem; border: 1px solid var(--border);
-      border-radius: 8px; text-decoration: none; color: var(--text);
-      font-family: var(--mono); font-size: 0.85rem;
-      transition: all 0.2s ease; background: rgba(3,7,12,0.4);
-    }
-    .contact-link:hover {
-      border-color: var(--accent); color: var(--accent);
-      box-shadow: 0 0 15px rgba(0, 242, 254, 0.15);
-      transform: translateY(-2px);
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      text-align: center; padding: 3rem;
-      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
-    }
-
-    /* RESPONSIVE LAYOUT RESPONSES */
-    @media (max-width: 1024px) {
-      .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 8rem; }
-      .hero-topology { display: none; }
-      .certs-layout { grid-template-columns: 1fr; }
-      nav { padding: 1.2rem 2rem; }
-      section { padding: 6rem 2rem; }
-    }
-    @media (max-width: 640px) {
-      .nav-links { display: none; }
-      .job { grid-template-columns: 1fr; gap: 0.5rem; }
-      h1 { font-size: 2.8rem; }
-    }
-  </style>
 </head>
+
 <body>
 
-<div class="glow-1"></div>
-<div class="glow-2"></div>
+<div class="background-grid"></div>
+
+<header>
 
 <nav>
-  <div class="nav-logo">khaled@devops:~$</div>
-  <ul class="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#certifications">Certs</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
 
-<!-- HERO CONTEXT -->
-<div class="hero">
-  <div class="hero-content">
-    <div class="hero-eyebrow">
-      <div class="hero-status-pulse"></div>
-      Senior Cloud Management & DevOps Engineer · 4+ Years Experience
-    </div>
-    <h1>Khaled <span>Ghazal</span></h1>
-    <p class="hero-sub">
-      Architecting mission-critical, self-hosted environments. Specializing in high-availability enterprise orchestration, structural automation configurations, and dynamic infrastructure-as-code deployments.
-    </p>
-    <div class="hero-ctas">
-      <a href="#experience" class="btn btn-primary">Explore Portfolio</a>
-      <a href="#contact" class="btn btn-outline">Contact Me</a>
-    </div>
-  </div>
+<div class="logo">
 
-  <!-- CORE ARCHITECTURE TOPOLOGY DIAGRAM -->
-  <div class="hero-topology">
-    <div class="topo-node">
-      <div>
-        <div class="topo-title">ENTERPRISE CORE VIRTUALIZATION</div>
-        <div class="topo-desc">Red Hat OpenStack / OpenShift Ecosystems</div>
-      </div>
-      <div class="topo-status">ACTIVE</div>
-    </div>
-    <div class="topo-arrow">↓</div>
-    <div class="topo-node">
-      <div>
-        <div class="topo-title">AUTOMATION & INTEGRATION LAYER</div>
-        <div class="topo-desc">Ansible AWX / NetBox Automated IPAM Engine</div>
-      </div>
-      <div class="topo-status">STABLE</div>
-    </div>
-    <div class="topo-arrow">↓</div>
-    <div class="topo-node">
-      <div>
-        <div class="topo-title">SECOPS & SECURE STORAGE NODES</div>
-        <div class="topo-desc">HashiCorp Vault PKI / Secure Container Harbor</div>
-      </div>
-      <div class="topo-status">ENCRYPTED</div>
-    </div>
-  </div>
+KG
+
 </div>
 
-<!-- SKILLS CORE MATRIX -->
+<ul>
+
+<li><a href="#about">About</a></li>
+
+<li><a href="#skills">Skills</a></li>
+
+<li><a href="#projects">Projects</a></li>
+
+<li><a href="#experience">Experience</a></li>
+
+<li><a href="#contact">Contact</a></li>
+
+</ul>
+
+<button id="themeBtn">
+
+☀
+
+</button>
+
+</nav>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-left">
+
+<div class="badge">
+
+Available for collaborations
+
+</div>
+
+<h1>
+
+Khaled <span>Ghazal</span>
+
+</h1>
+
+<h2>
+
+Senior Cloud Management & DevOps Engineer
+
+</h2>
+
+<p>
+
+Building scalable cloud platforms, Kubernetes environments, CI/CD ecosystems and enterprise automation solutions.
+
+</p>
+
+<div class="hero-buttons">
+
+<a href="#projects" class="btn-primary">
+
+Explore My Work
+
+</a>
+
+<a href="files/Khaled-Ghazal-CV.pdf"
+
+download
+
+class="btn-secondary">
+
+Download CV
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="hero-right">
+
+<div class="architecture-card">
+
+<div class="node">
+
+Users
+
+</div>
+
+<div class="line"></div>
+
+<div class="node">
+
+OpenShift
+
+</div>
+
+<div class="line"></div>
+
+<div class="node-row">
+
+<div class="node">AWX</div>
+
+<div class="node">Vault</div>
+
+<div class="node">Harbor</div>
+
+</div>
+
+<div class="line"></div>
+
+<div class="node">
+
+Terraform + NetBox
+
+</div>
+
+<div class="line"></div>
+
+<div class="node">
+
+OpenStack
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="about">
+
+<div class="section-title">
+
+About Me
+
+</div>
+
+<div class="about-card">
+
+<p>
+
+Senior Cloud Management & DevOps Engineer with 4+ years of experience in enterprise infrastructure, cloud automation, Kubernetes, GitOps, and self-hosted DevOps ecosystems.
+
+</p>
+
+<p>
+
+Currently leading cloud and DevOps initiatives at Orange Jordan.
+
+</p>
+
+</div>
+
+</section>
+
+
 <section id="skills">
-  <p class="section-label">Tech Stack</p>
-  <h2>Technical Competency Matrix</h2>
-  <div class="skills-grid">
-    <div class="skill-card">
-      <h3>Cloud & Virtualisation <span style="color:var(--border-focus)">01</span></h3>
-      <div class="tags">
-        <span class="tag">Red Hat OpenStack</span>
-        <span class="tag">AWS</span>
-        <span class="tag">Docker</span>
-        <span class="tag">Podman</span>
-        <span class="tag">Multi-Cloud</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Container Orchestration <span style="color:var(--border-focus)">02</span></h3>
-      <div class="tags">
-        <span class="tag">Kubernetes</span>
-        <span class="tag">OpenShift</span>
-        <span class="tag">Helm</span>
-        <span class="tag">ArgoCD</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>CI/CD & Automation <span style="color:var(--border-focus)">03</span></h3>
-      <div class="tags">
-        <span class="tag">Jenkins</span>
-        <span class="tag">GitLab CI</span>
-        <span class="tag">GitHub Actions</span>
-        <span class="tag">AWX</span>
-        <span class="tag">Ansible</span>
-        <span class="tag">Red Hat AAP</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Infrastructure as Code <span style="color:var(--border-focus)">04</span></h3>
-      <div class="tags">
-        <span class="tag">Terraform</span>
-        <span class="tag">Ansible</span>
-        <span class="tag">YAML</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Self-Hosted Tooling <span style="color:var(--border-focus)">05</span></h3>
-      <div class="tags">
-        <span class="tag">AWX</span>
-        <span class="tag">HashiCorp Vault</span>
-        <span class="tag">Harbor</span>
-        <span class="tag">Gitea</span>
-        <span class="tag">NetBox</span>
-      </div>
-    </div>
-    <div class="skill-card">
-      <h3>Monitoring & Security <span style="color:var(--border-focus)">06</span></h3>
-      <div class="tags">
-        <span class="tag">Grafana</span>
-        <span class="tag">ArcSight SIEM</span>
-        <span class="tag">RBAC</span>
-        <span class="tag">Fortify WebInspect</span>
-        <span class="tag">PKI</span>
-      </div>
-    </div>
-  </div>
+
+<div class="section-title">
+
+Core Expertise
+
+</div>
+
+<div class="grid">
+
+
+<div class="card">
+
+☁
+
+<h3>Cloud</h3>
+
+<p>OpenStack, AWS, Virtualization</p>
+
+</div>
+
+<div class="card">
+
+☸
+
+<h3>Containers</h3>
+
+<p>Kubernetes, OpenShift, Helm</p>
+
+</div>
+
+<div class="card">
+
+⚙
+
+<h3>Automation</h3>
+
+<p>Ansible, AWX, AAP</p>
+
+</div>
+
+<div class="card">
+
+🏗
+
+<h3>Infrastructure as Code</h3>
+
+<p>Terraform, GitOps</p>
+
+</div>
+
+<div class="card">
+
+🔐
+
+<h3>Security</h3>
+
+<p>Vault, RBAC, PKI</p>
+
+</div>
+
+<div class="card">
+
+📊
+
+<h3>Observability</h3>
+
+<p>Grafana, Monitoring</p>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- PROFESSIONAL TIMELINE -->
+
+<section id="projects">
+
+<div class="section-title">
+
+Featured Projects
+
+</div>
+
+<div class="projects-grid">
+
+
+<div class="project">
+
+<h3>Enterprise DevOps Platform</h3>
+
+<p>
+
+AWX + Vault + Harbor + Gitea + NetBox ecosystem
+
+</p>
+
+</div>
+
+
+<div class="project">
+
+<h3>GitOps Kubernetes Platform</h3>
+
+<p>
+
+Kubernetes + ArgoCD + Helm + Grafana
+
+</p>
+
+</div>
+
+
+<div class="project">
+
+<h3>OpenShift Operations</h3>
+
+<p>
+
+Production administration and application onboarding
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
 <section id="experience">
-  <p class="section-label">Work History</p>
-  <h2>Experience</h2>
-  <div class="timeline">
 
-    <div class="job">
-      <div class="job-left">
-        <span>2024 — PRESENT</span>
-        Senior Infrastructure Track
-      </div>
-      <div class="job-right">
-        <h3>Senior Cloud Management Administrator</h3>
-        <div class="job-company">Orange Jordan</div>
-        <ul>
-          <li>Lead ownership of the private cloud platform and internal DevOps toolchain after promotion.</li>
-          <li>Deployed and manage AWX as the team's main automation hub for Ansible playbooks.</li>
-          <li>Set up HashiCorp Vault for secrets management — dynamic secrets and PKI across services.</li>
-          <li>Built Harbor (internal container registry) with vulnerability scanning and access control.</li>
-          <li>Deployed Gitea for self-hosted Git and NetBox wired into Ansible and Terraform for IPAM.</li>
-          <li>Manage OpenShift clusters for containerised application workloads organisation-wide.</li>
-          <li>Mentor junior engineers on GitOps and IaC practices.</li>
-        </ul>
-      </div>
-    </div>
+<div class="section-title">
 
-    <div class="job">
-      <div class="job-left">
-        <span>2023 — 2024</span>
-        Cloud Operations Track
-      </div>
-      <div class="job-right">
-        <h3>Cloud Management Administrator</h3>
-        <div class="job-company">Orange Jordan</div>
-        <ul>
-          <li>Managed Red Hat OpenStack — compute, networking, and storage for the private cloud.</li>
-          <li>Built a Kubernetes cluster from scratch using GitOps with ArgoCD + Grafana monitoring.</li>
-          <li>Set up CI/CD pipelines in Jenkins for multiple microservices teams, cutting release cycle time.</li>
-          <li>Maintained 99.9%+ uptime across Red Hat Linux servers in data centre environments.</li>
-          <li>Implemented backup and disaster recovery across critical cloud applications.</li>
-        </ul>
-      </div>
-    </div>
+Career Journey
 
-    <div class="job">
-      <div class="job-left">
-        <span>2022 — 2022</span>
-        Security Architecture Node
-      </div>
-      <div class="job-right">
-        <h3>Security Administrator</h3>
-        <div class="job-company">Satius Security</div>
-        <ul>
-          <li>Monitored security events daily using ArcSight SIEM, escalating incidents as needed.</li>
-          <li>Automated parts of incident response with Ansible playbooks.</li>
-          <li>Integrated external threat intelligence into SIEM to improve detection beyond signature-based rules.</li>
-          <li>Ran vulnerability scans with Fortify WebInspect and fed findings into remediation tracking.</li>
-        </ul>
-      </div>
-    </div>
+</div>
 
-    <div class="job">
-      <div class="job-left">
-        <span>2021 — 2022</span>
-        Technical Ingress Node
-      </div>
-      <div class="job-right">
-        <h3>Technical Support Engineer</h3>
-        <div class="job-company">SociumTech</div>
-        <ul>
-          <li>Handled 150+ support incidents per quarter across Windows, Linux, and macOS — 99.9% uptime.</li>
-          <li>Managed Dell server and network infrastructure including firewalls and switches.</li>
-          <li>Configured CI/CD pipeline on AWS for development teams.</li>
-        </ul>
-      </div>
-    </div>
 
-  </div>
+<div class="timeline">
+
+<div class="timeline-item">
+
+<h3>
+
+Senior Cloud Management Administrator
+
+</h3>
+
+<span>
+
+2024 - Present | Orange Jordan
+
+</span>
+
+</div>
+
+
+<div class="timeline-item">
+
+<h3>
+
+Cloud Management Administrator
+
+</h3>
+
+<span>
+
+2023 - 2024 | Orange Jordan
+
+</span>
+
+</div>
+
+
+<div class="timeline-item">
+
+<h3>
+
+Security Administrator
+
+</h3>
+
+<span>
+
+2022 | Satius Security
+
+</span>
+
+</div>
+
+
+<div class="timeline-item">
+
+<h3>
+
+Technical Support Engineer
+
+</h3>
+
+<span>
+
+2021 - 2022 | SociumTech
+
+</span>
+
+</div>
+
+</div>
+
 </section>
 
-<!-- CREDENTIALS VERIFICATION -->
-<section id="certifications">
-  <div class="certs-layout">
-    <div>
-      <p class="section-label">Credentials</p>
-      <h2>Verified Certifications</h2>
-      <p style="color:var(--muted); font-size:1rem; max-width:320px;">
-        Continuous educational track compliance and verified technical accreditations.
-      </p>
-    </div>
-    
-    <div>
-      <div class="certs-grid">
-        <div class="cert-card">
-          <div class="cert-icon">🏅</div>
-          <div>
-            <div class="cert-name">Red Hat Certified System Administrator</div>
-            <div class="cert-year">RHCSA · 2023</div>
-          </div>
-        </div>
-      </div>
 
-      <p class="section-label" style="margin-top: 3.5rem; margin-bottom: 1.5rem;">Training & Courses</p>
-      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:1rem;">
-        <div class="cert-card">
-          <div class="cert-icon">🔐</div>
-          <div>
-            <div class="cert-name">CompTIA Security+</div>
-            <div class="cert-year">New Horizons · 2020</div>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon">🐧</div>
-          <div>
-            <div class="cert-name">CompTIA Linux+</div>
-            <div class="cert-year">New Horizons · 2019</div>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon">💻</div>
-          <div>
-            <div class="cert-name">CompTIA A+</div>
-            <div class="cert-year">New Horizons · 2019</div>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon">🌐</div>
-          <div>
-            <div class="cert-name">Cisco CCNA</div>
-            <div class="cert-year">University of Jordan · 2017</div>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon">🎓</div>
-          <div>
-            <div class="cert-name">National ICT Upskilling</div>
-            <div class="cert-year">HTU · 2020</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COMMUNICATIONS INGRESS -->
 <section id="contact">
-  <div class="contact-wrapper">
-    <p class="section-label">Get In Touch</p>
-    <h2 style="margin-bottom:1rem;">Let's Connect</h2>
-    <p>Open to complex architectural configurations, enterprise automation tuning, or platform engineering challenges.</p>
-    <div class="contact-links">
-      <a href="tel:00962799000471" class="contact-link">📞 +962 7 9900 0471</a>
-      <a href="mailto:khalid.ghazal1997@gmail.com" class="contact-link">✉ Email</a>
-      <a href="https://linkedin.com/in/khaled-ghazal-997000" target="_blank" class="contact-link">📂 LinkedIn</a>
-      <a href="https://github.com/khaled-ghazal-99" target="_blank" class="contact-link">⌥ GitHub</a>
-    </div>
-  </div>
+
+<div class="contact-card">
+
+<h2>
+
+Let's Connect
+
+</h2>
+
+<p>
+
+Open to cloud engineering and DevOps opportunities.
+
+</p>
+
+<div class="contact-links">
+
+<a href="mailto:khalid.ghazal1997@gmail.com">
+
+Email
+
+</a>
+
+<a href="https://linkedin.com/in/khaled-ghazal-997000">
+
+LinkedIn
+
+</a>
+
+<a href="https://github.com/khaled-ghazal-99">
+
+GitHub
+
+</a>
+
+</div>
+
+</div>
+
 </section>
+
 
 <footer>
-  <p>Built by Khaled Ghazal · khaled-ghazal-99.github.io</p>
+
+© 2026 Khaled Ghazal
+
 </footer>
 
+
+<script src="script.js"></script>
+
 </body>
+
 </html>
